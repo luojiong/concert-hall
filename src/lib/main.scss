@@ -1,0 +1,92 @@
+.mytable{
+  width: 100%;
+  border: none;
+  text-align: center;
+  .mytable-tr{
+    background: rgba(104,98,96,0.2);
+    td{
+      padding:  5px;
+      border-bottom: 1px solid #707070;
+      border-right: 1px solid #7892a0;
+    }
+    & > td:last-child{
+       border-right: none;
+    }
+  }
+}
+.table-title{
+  color: white;
+  font-size:16px;
+  line-height: 40px;
+  padding-left: 10px;
+}
+.tableContainner {
+  background: transparent;
+  border: none;
+  .cell{
+    height: 23px;
+    white-space: nowrap;
+  }
+  td,
+  th{
+    padding: 5px 0;
+  }
+  tr > td:last-child{
+    border-right: 0;
+  }
+  tr > th:last-child{
+    border-right: 0;
+  }
+  th,
+  tr {
+    background: rgba(104, 98, 96, 0.2);
+    color: #c9c9c9;
+  }
+  td,
+  th {
+    border-right: 1px solid #7892a0;
+    text-align: center;
+  }
+  .el-table__body tr:hover > td {
+    background: rgba(104, 98, 96, 0.2);
+  }
+  td,
+  th.is-leaf {
+    border-bottom: 1px solid #707070;
+  }
+}
+.tableContainner::after,
+.el-table--group::after,
+.el-table::before {
+  content: "";
+  background: none;
+}
+.mypage {
+  width: auto;
+  position: absolute;
+  bottom: 5px;
+  right: 0;
+  .el-dialog,
+  .el-pager li {
+    color: white;
+    background-color: transparent;
+  }
+  button:disabled {
+    background-color: transparent;
+  }
+  .btn-next,
+  .btn-prev {
+    color: white;
+    background-color: transparent !important;
+  }
+  .el-pager li.active {
+    background-color: #d4a358;
+    color: white;
+  }
+  .el-pagination__total {
+    color: #c9c9c9;
+  }
+  .el-pagination__jump {
+    color: #c9c9c9;
+  }
+}

@@ -115,6 +115,9 @@ $body-color: rgba(22, 18, 16, 0.6);
           :data="data"
           class="mytree"
           :props="defaultProps"
+          node-key="id"
+          :default-expanded-keys="active.array"
+          :current-node-key="active.value"
           @node-click="handleNodeClick"
           :render-content="renderContent"
         ></el-tree>
@@ -132,49 +135,103 @@ export default {
     return {
       data: [
         {
+          id: 1,
           label: "安全监测",
+          path: "safetyMonitoring",
           img: require("../../public/images/home/anquan.png"),
           children: [
             {
-              label: "二级 x1-1"
+              id: 6,
+              label: "木屋架变形监测",
+              path: "/frame"
+            },
+            {
+              id:7,
+              label: "格栅、吊杆变形监测",
+              path:"/frame"
+            },
+            {
+              id:8,
+              label: "观众厅大顶姿态监测",
+              path:"/topmonitoring"
+            },
+            {
+              id:9,
+              label: "定期检测成果",
+              path:"/regulartesting"
+            },
+            {
+              id:10,
+              label: "监测设备台账",
+              path:"/equipment"
             }
           ]
         },
         {
+          id: 2,
           label: "三维实景展示",
-          img: require("../../public/images/home/sanwei.png"),
-          children: [
-            {
-              label: "二级 2-1"
-            },
-            {
-              label: "二级 2-2"
-            }
-          ]
+          path: "/webVr",
+          img: require("../../public/images/home/sanwei.png")
         },
         {
+          id: 3,
           label: "工程资料",
-          img: require("../../public/images/home/gongcheng.png"),
-          children: [
-            {
-              label: "二级 3-1"
-            },
-            {
-              label: "二级 3-2"
-            }
-          ]
+          path: "/projectdata",
+          img: require("../../public/images/home/gongcheng.png")
+        },
+        {
+          id: 4,
+          label: "特色保护部位",
+          path: "/protectionlocation",
+          img: require("../../public/images/home/tese.png")
+        },
+        {
+          id: 5,
+          label: "系统设置",
+          path: "/systemsetup",
+          img: require("../../public/images/home/xitong.png")
         }
       ],
       defaultProps: {
+        id: "id",
         children: "children",
         label: "label",
-        img: "img"
+        img: "img",
+        path: "path"
+      },
+      active: {
+        array: [],
+        value: 0
       }
     };
   },
+  created() {
+    this.initTree();
+  },
   methods: {
     handleNodeClick(data) {
-      console.log(data);
+      if (data.path != this.$route.path) {
+        this.$router.push({ path: data.path });
+      }
+    },
+    initTree() {
+      for (let i = 0; i < this.data.length; i++) {
+        if (this.$route.path == this.data[i].path) {
+          this.active.value = this.data[i].id;
+          this.active.array = [this.data[i].id];
+        }
+        if (this.data[i].children && this.data[i].children.length !== 0) {
+          for (let j = 0; j < this.data[i].children.length; j++) {
+            if (this.data[i].children[j].path == this.$route.path) {
+              this.active.value = this.data[i].children[j].id;
+              this.active.array = [
+                this.data[i].id,
+                this.data[i].children[j].id
+              ];
+            }
+          }
+        }
+      }
     },
     renderContent(h, { node, data, store }) {
       return (

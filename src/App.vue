@@ -14,7 +14,7 @@ body,
   font-size: 14px;
   width: 100%;
   height: 100%;
-  color: rgba(255, 255, 255, 0.8);
+  color:white;
 }
 div{
   box-sizing: border-box;

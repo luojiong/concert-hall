@@ -10,12 +10,49 @@ export default new Router({
       path: "/",
       name: "home",
       component: Home,
-      children:[
+      redirect: "/safetyMonitoring",
+      children: [
         {
-          path: '/safetyMonitoring',
+          path: "/safetyMonitoring",
           component: () =>
-              import( "./views/safety-monitoring/safetyMonitoring.vue")
+            import("./views/safety-monitoring/safetyMonitoring.vue")
         },
+        {
+          path: "/frame",
+          component: () => import("./views/safety-monitoring/child/frame.vue")
+        },
+        {
+          path: "/topmonitoring",
+          component: () =>
+            import("./views/safety-monitoring/child/top-monitoring.vue")
+        },
+        {
+          path: "/regulartesting",
+          component: () =>
+            import("./views/safety-monitoring/child/regular-testing.vue")
+        },
+        {
+          path: "/equipment",
+          component: () =>
+            import("./views/safety-monitoring/child/equipment.vue")
+        },
+        {
+          path: "/webVr",
+          component: () => import("./views/webVr/webVr.vue")
+        },
+        {
+          path: "/projectdata",
+          component: () => import("./views/projectdata/projectdata.vue")
+        },
+        {
+          path: "/protectionlocation",
+          component: () =>
+            import("./views/protection-location/protection-location.vue")
+        },
+        {
+          path: "/systemsetup",
+          component: () => import("./views/system-setup/system-setup.vue")
+        }
       ]
     },
     {

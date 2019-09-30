@@ -18,10 +18,19 @@
 .bim-box {
   width: 100%;
   height: 50vh;
-  border-radius: 5px;
-  background: url("../../../public/images/home/banner.png") center center
+  display: flex;
+  div{
+    flex-grow: 1;
+    border-radius: 5px;
+    height: 100%;
+    background: url("../../../../public/images/home/banner.png") center center
     no-repeat;
-  background-size: 100% 100%;
+    background-size: 100% 100%;
+  }
+  div:first-child{
+    margin-right: 20px;
+
+  }
 }
 .Bimcontaienr {
   height: 100%;
@@ -53,7 +62,7 @@
 }
 .mychart {
   width: 100%;
-  height: calc(100% - 50px);
+  height: calc(100% - 27px);
 }
 .chart-title {
   font-size: 16px;
@@ -63,16 +72,6 @@
   width: 80%;
   margin-top: 5px;
   font-size: 14px;
-}
-.subsidiary {
-  font-size: 12px;
-  color: #c9c9c9;
-}
-.zhibiao {
-  float: right;
-  font-size: 12px;
-  color: red;
-  margin-top: 2px;
 }
 .right-container {
   height: 32.3%;
@@ -125,43 +124,26 @@
               受力轻微</el-col
             >
           </el-row>
-          <div class="bim-box"></div>
+          <div class="bim-box">
+            <div></div>
+            <div></div>
+          </div>
         </div>
         <el-row class="footer-echart" :gutter="20">
-          <el-col :span="8">
+          <el-col :span="12">
             <div class="chart-container">
               <div class="chart-title">
-                风险指标1柱
-                <div class="chart-subtitle">
-                  378.2 <span class="subsidiary">(今日风险指数) </span
-                  ><span class="zhibiao">+13.2</span>
-                </div>
+                变形速度分布
               </div>
               <chart :options="options1" class="mychart"></chart>
             </div>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="12">
             <div class="chart-container">
               <div class="chart-title">
-                风险指标1柱
-                <div class="chart-subtitle">
-                  378.2 <span class="subsidiary">(今日风险指数) </span
-                  ><span class="zhibiao">+13.2</span>
-                </div>
+                差异变形分布
               </div>
               <chart :options="options2" class="mychart"></chart>
-            </div>
-          </el-col>
-          <el-col :span="8">
-            <div class="chart-container">
-              <div class="chart-title">
-                风险指标1柱
-                <div class="chart-subtitle">
-                  378.2 <span class="subsidiary">(今日风险指数) </span
-                  ><span class="zhibiao">+13.2</span>
-                </div>
-              </div>
-              <chart :options="options3" class="mychart"></chart>
             </div>
           </el-col>
         </el-row>
@@ -169,75 +151,47 @@
       <el-col :span="6">
         <div class="right-container">
           <div class="border-box" style=" margin-top: 0;">
-            <div class="mychart" style="position: relative">
+            <div class="table-title">
+              变形速率
+            </div>
+            <chart :options="options3" class="mychart" style="height: calc(100% - 50px);"></chart>
+          </div>
+        </div>
+        <div class="right-container">
+          <div class="border-box">
+            <div class="table-title">
+              差异变形
+            </div>
+            <chart :options="options5" class="mychart" style="height: calc(100% - 50px);"></chart>
+          </div>
+        </div>
+        <div class="right-container">
+          <div class="border-box" >
+            <div class="mychart" style="position: relative;height: calc(100% - 50px)">
               <div class="chart-number">4396</div>
               <chart
-                :options="options4"
-                style="width: 100%;height: 100%;"
+                      :options="options4"
+                      style="width: 100%;height: 100%;"
               ></chart>
             </div>
             <el-row style="font-size: 12px;text-align: center">
               <el-col :span="6" v-for="item in chartdata">
                 <div class="chart-text">
                   <span
-                    class="circular"
-                    :style="'border:2px solid ' + item.color"
+                          class="circular"
+                          :style="'border:2px solid ' + item.color"
                   ></span>
                   {{ item.title }}
                 </div>
                 <div
-                  :style="'color:' + item.color"
-                  style="margin-top: 0.5vh;font-size: 16px;"
-                  class="chart-text"
+                        :style="'color:' + item.color"
+                        style="margin-top: 0.5vh;font-size: 16px;"
+                        class="chart-text"
                 >
                   {{ item.value }}
                 </div>
               </el-col>
             </el-row>
-          </div>
-        </div>
-        <div class="right-container">
-          <div class="border-box">
-            <div class="table-title">
-            预警报告单
-            </div>
-            <table class="mytable"  cellspacing="0">
-              <tr class="mytable-tr">
-                <td>类型</td>
-                <td>位置</td>
-                <td>报警时间</td>
-                <td>报警值</td>
-                <td>结论</td>
-              </tr>
-              <tr v-for="item in tableData" class="mytable-tr">
-                <td class="mytable-td">{{ item.type }}</td>
-                <td class="mytable-td">{{ item.address }}</td>
-                <td class="mytable-td">{{ item.date }}</td>
-                <td class="mytable-td">{{ item.value }}</td>
-                <td class="mytable-td">{{ item.des }}</td>
-              </tr>
-            </table>
-          </div>
-        </div>
-        <div class="right-container">
-          <div class="border-box">
-            <div class="table-title">
-              预警处理情况
-            </div>
-            <table class="mytable"   cellspacing="0">
-              <tr class="mytable-tr">
-                <td>序号</td>
-                <td>处理人</td>
-                <td>处理时间</td>
-                <td>处理结果</td>
-              </tr>
-              <tr v-for="(item,index) in tableData" class="mytable-tr">
-                <td class="mytable-td">{{ index + 1 }}</td>
-                <td class="mytable-td">{{ item.address }}</td>
-                <td class="mytable-td">{{ item.date }}</td>
-                <td class="mytable-td">{{ item.des }}</td>
-              </tr>
-            </table>
           </div>
         </div>
       </el-col>
@@ -251,7 +205,7 @@ export default {
   components: {
     chart: VueEcharts
   },
-  name: "safetyMonitoring",
+  name: "topmonitoring",
   data() {
     return {
       tableData: [
@@ -315,7 +269,7 @@ export default {
         xAxis: [
           {
             type: "category",
-            data: ["11", "12", "13", "14", "15", "16", "17"],
+            data: ["1月", "2月", "3月", "4月", "5月", "6月", "7月"],
             axisLabel: {
               color: "#c9c9c9"
             },
@@ -354,39 +308,32 @@ export default {
         ]
       },
       options2: {
+        color: ["#DEA518"],
         tooltip: {
           trigger: "axis",
           axisPointer: {
-            type: "cross",
-            label: {
-              backgroundColor: "rgb(190,51,53)"
-            }
+            type: "shadow"
           }
         },
         grid: {
           left: "3%",
-          top: "10%",
           right: "4%",
           bottom: "3%",
           containLabel: true
         },
         xAxis: [
           {
+            type: "category",
+            data: ["1月", "2月", "3月", "4月", "5月", "6月", "7月"],
+            axisLabel: {
+              color: "#c9c9c9"
+            },
             axisTick: {
               show: false
             },
             axisLine: {
               show: false
-            },
-            splitLine: {
-              show: false
-            },
-            type: "category",
-            axisLabel: {
-              color: "#c9c9c9"
-            },
-            boundaryGap: false,
-            data: ["11", "12", "13", "14", "15", "16", "17"]
+            }
           }
         ],
         yAxis: [
@@ -400,26 +347,18 @@ export default {
             splitLine: {
               show: false
             },
+            type: "value",
             axisLabel: {
               color: "#c9c9c9"
-            },
-            type: "value"
+            }
           }
         ],
         series: [
           {
-            name: "邮件营销",
-            smooth: true,
-            symbol: "none",
-            type: "line",
-            stack: "总量",
-            lineStyle: {
-              color: "rgb(190,51,53)"
-            },
-            areaStyle: {
-              color: "rgba(190,51,53,.4)"
-            },
-            data: [120, 132, 101, 134, 90, 230, 210]
+            name: "直接访问",
+            type: "bar",
+            barWidth: "20%",
+            data: [10, 52, 200, 334, 390, 330, 220]
           }
         ]
       },
@@ -429,7 +368,7 @@ export default {
           axisPointer: {
             type: "cross",
             label: {
-              backgroundColor: "#6a7985"
+              backgroundColor: "rgb(228,50,50)"
             }
           }
         },
@@ -446,10 +385,9 @@ export default {
               show: false
             },
             axisLine: {
-              show: false
-            },
-            splitLine: {
-              show: false
+              lineStyle:{
+                color:'#4e4c4d'
+              }
             },
             type: "category",
             axisLabel: {
@@ -465,10 +403,15 @@ export default {
               show: false
             },
             axisLine: {
-              show: false
+              lineStyle:{
+                color:'#4e4c4d'
+              }
             },
             splitLine: {
-              show: false
+              interval:2,
+              lineStyle:{
+                color:'#4e4c4d'
+              }
             },
             axisLabel: {
               color: "#c9c9c9"
@@ -478,18 +421,30 @@ export default {
         ],
         series: [
           {
-            name: "邮件营销",
+            name: "差异变形",
             smooth: true,
             symbol: "none",
             type: "line",
-            stack: "总量",
             lineStyle: {
-              color: "rgb(120,146,160)"
+              color: "rgba(228,50,50,0.6)"
             },
             areaStyle: {
-              color: "rgba(120,146,160,.4)"
+              color: "rgba(228,50,50,0.35)"
             },
-            data: [120, 132, 101, 134, 90, 230, 210]
+            data:[180, 302, 101, 134, 90, 230, 210]
+          },
+          {
+            name: "差异变形2",
+            smooth: true,
+            symbol: "none",
+            type: "line",
+            lineStyle: {
+              color: "rgba(58,133,255,0.9)"
+            },
+            areaStyle: {
+              color: "rgba(58,133,255,0.35)"
+            },
+            data:[140, 272, 90, 114, 70, 210, 190]
           }
         ]
       },
@@ -531,6 +486,92 @@ export default {
               { value: 135, name: "视频广告" },
               { value: 1548, name: "搜索引擎" }
             ]
+          }
+        ]
+      },
+      options5: {
+        tooltip: {
+          trigger: "axis",
+          axisPointer: {
+            type: "cross",
+            label: {
+              backgroundColor: "rgb(228,50,50)"
+            }
+          }
+        },
+        grid: {
+          left: "3%",
+          top: "10%",
+          right: "4%",
+          bottom: "3%",
+          containLabel: true
+        },
+        xAxis: [
+          {
+            axisTick: {
+              show: false
+            },
+            axisLine: {
+              lineStyle:{
+                color:'#4e4c4d'
+              }
+            },
+            type: "category",
+            axisLabel: {
+              color: "#c9c9c9"
+            },
+            boundaryGap: false,
+            data: ["11", "12", "13", "14", "15", "16", "17"]
+          }
+        ],
+        yAxis: [
+          {
+            axisTick: {
+              show: false
+            },
+            axisLine: {
+              lineStyle:{
+                color:'#4e4c4d'
+              }
+            },
+            splitLine: {
+              interval:2,
+              lineStyle:{
+                color:'#4e4c4d'
+              }
+            },
+            axisLabel: {
+              color: "#c9c9c9"
+            },
+            type: "value"
+          }
+        ],
+        series: [
+          {
+            name: "差异变形",
+            smooth: true,
+            symbol: "none",
+            type: "line",
+            lineStyle: {
+              color: "rgba(228,50,50,0.6)"
+            },
+            areaStyle: {
+              color: "rgba(228,50,50,0.35)"
+            },
+            data:[180, 302, 101, 134, 90, 230, 210]
+          },
+          {
+            name: "差异变形2",
+            smooth: true,
+            symbol: "none",
+            type: "line",
+            lineStyle: {
+              color: "rgba(58,133,255,0.9)"
+            },
+            areaStyle: {
+              color: "rgba(58,133,255,0.35)"
+            },
+            data:[140, 272, 90, 114, 70, 210, 190]
           }
         ]
       },
